@@ -41,7 +41,9 @@ export default class CombatManager {
 
         this.combatLog.push(`Played ${card.name}`);
 
-        return { success: true, card };
+        this.checkCombatOver();
+
+        return { success: true, card, combatOver: this.combatOver };
     }
 
     applyCardEffects(card) {
@@ -101,23 +103,12 @@ export default class CombatManager {
         // Enemy turn
         this.enemyTurn();
 
-        // Check combat state after enemy action
-        if (this.enemy.isDead()) {
-            this.combatOver = true;
-            this.playerWon = true;
-            this.combatLog.push("Enemy defeated!");
-            return;
-        }
+        this.checkCombatOver();
 
-        if (this.player.isDead()) {
-            this.combatOver = true;
-            this.playerWon = false;
-            this.combatLog.push("Player defeated!");
-            return;
+        if (!this.combatOver) {
+            // Start new player turn
+            this.player.resetTurn();
         }
-
-        // Start new player turn
-        this.player.resetTurn();
     }
 
     enemyTurn() {
@@ -128,6 +119,25 @@ export default class CombatManager {
             this.combatLog.push(
                 `${this.enemy.name} attacked for ${damageDealt} damage`
             );
+        }
+    }
+
+    checkCombatOver() {
+        if (this.enemy && this.enemy.isDead()) {
+            this.combatOver = true;
+            this.playerWon = true;
+            if (!this.combatLog.includes("Enemy defeated!")) {
+                this.combatLog.push("Enemy defeated!");
+            }
+            return;
+        }
+
+        if (this.player && this.player.isDead()) {
+            this.combatOver = true;
+            this.playerWon = false;
+            if (!this.combatLog.includes("Player defeated!")) {
+                this.combatLog.push("Player defeated!");
+            }
         }
     }
 

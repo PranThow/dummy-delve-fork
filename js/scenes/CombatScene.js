@@ -140,7 +140,26 @@ export default class CombatScene extends Scene {
     playCard(index) {
         const result = this.combatManager.playCard(index);
         if (result.success) {
-            this.render();
+            if (result.combatOver && this.combatManager.playerWon) {
+                this.advanceAfterVictory();
+            } else {
+                this.render();
+            }
+        }
+    }
+
+    advanceAfterVictory() {
+        this.game.runManager.nextRoom();
+        const room = this.game.runManager.getCurrentRoom();
+
+        if (room.type === "boss" && this.game.runManager.roomIndex >= this.game.runManager.rooms.length - 1) {
+            this.game.sceneManager.changeScene(
+                new RewardScene(this.game, true)
+            );
+        } else {
+            this.game.sceneManager.changeScene(
+                new RewardScene(this.game, false)
+            );
         }
     }
 }

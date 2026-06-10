@@ -1,6 +1,6 @@
-# Dummy Delve
+# Dummy Delve Fork
 
-A browser-based dungeon crawler with turn-based combat, built with vanilla HTML, CSS, and JavaScript.
+A fork of the browser-based dungeon crawler with turn-based combat, built with vanilla HTML, CSS, and JavaScript.
 
 ## Overview
 
