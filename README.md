@@ -23,16 +23,9 @@ Dummy Delve is a single-player roguelike with a focus on clean architecture and 
 
 ## How to Run
 
-1. Start a local web server in the project directory:
-   ```bash
-   python3 -m http.server 8000
-   ```
-   Or use any other local server (e.g., `php -S localhost:8000`, `npx serve`)
+Unlike the original repo of Dummy Delve, you are able to play the game via GitHub Pages for free right here!
 
-2. Open your browser and navigate to:
-   ```
-   http://localhost:8000
-   ```
+https://pranthow.github.io/dummy-delve-fork/
 
 ## Project Structure
 
