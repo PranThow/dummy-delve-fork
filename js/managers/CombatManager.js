@@ -90,10 +90,18 @@ export default class CombatManager {
     }
 
     endPlayerTurn() {
+        // If the enemy is already dead, do not let it take a turn.
+        if (this.enemy.isDead()) {
+            this.combatOver = true;
+            this.playerWon = true;
+            this.combatLog.push("Enemy defeated!");
+            return;
+        }
+
         // Enemy turn
         this.enemyTurn();
 
-        // Check combat state
+        // Check combat state after enemy action
         if (this.enemy.isDead()) {
             this.combatOver = true;
             this.playerWon = true;
